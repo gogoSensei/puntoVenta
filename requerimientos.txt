@@ -1,0 +1,8 @@
+#Evitar errores al instalar, se inatala con "sudo apt-get istall"
+## python-dev
+## libpq-dev
+
+#use sudo python3 -m pip install -r <archivo>
+
+#Control de base de datos
+psycopg2
