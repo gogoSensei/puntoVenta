@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+# -*- coding: utf-8 -*-
 
 import gi
 gi.require_version('Gtk', '3.0')
@@ -70,8 +71,7 @@ class EntryWindow(Gtk.Window):
             icon_name = "system-search-symbolic"
         else:
             icon_name = None
-        self.entry.set_icon_from_icon_name(Gtk.EntryIconPosition.PRIMARY,
-            icon_name)
+        self.entry.set_icon_from_icon_name(Gtk.EntryIconPosition.PRIMARY, icon_name)
 
 win = EntryWindow()
 win.connect("delete-event", Gtk.main_quit)

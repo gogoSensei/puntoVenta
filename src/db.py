@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+# -*- coding: utf-8 -*-
 
 ############# Isidro Rivera Monjaras ############
 #############       19/02/2018       ############

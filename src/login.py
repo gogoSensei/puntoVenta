@@ -1,40 +1,47 @@
 #!/usr/bin/python3
+# -*- coding: utf-8 -*-
 
 ############# Isidro Rivera Monjaras ############
 #############       19/02/2018       ############
 
-import gi
-gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk
+from src.widgets import widgetsUse
+from src.inicio import ventanaInicio
 
-class main(object):
+class main(widgetsUse):
     """docstring for logIn."""
     def __init__(self):
-        # Conexión a archivo galde
-        builder = Gtk.Builder()
-        builder.add_from_file("./gld/login.glade")
-        # Obteniendo todos los widgets
-        boton_entrar = builder.get_object("bt_entrar")
-        boton_cancelar = builder.get_object("bt_cancel")
-        entry_user = builder.get_object("e_usuario")
-        entry_contrasena = builder.get_object("e_contrasena")
-        window = builder.get_object("window1")
-        # Activando las señales
-        entry_user.has_focus()
-        entry_user.connect("activate", self.onEntryValue, entry_contrasena)
-        window.connect("delete-event", Gtk.main_quit)
-        boton_entrar.connect("clicked", self.onButtonPressed)
-        boton_cancelar.connect("clicked", self.onButtonPressed2)
+        super().__init__(gld="./gld/login.glade")
+        window = self.windows(nombre="window1")
         window.show_all()
-        Gtk.main()
+        bt_data = {"nombre":'bt_entrar',
+                   "evento" : {"tipo": 'clicked',
+                               "funcion": self.onButtonEntrar}
+                   }
+        boton_entrar = self.button(**bt_data)
+        bt_data["nombre"] = 'bt_cancel'
+        bt_data["evento"]["funcion"] = self.onButtonCancel
+        boton_cancelar = self.button(**bt_data)
+        entry_contrasena = self.entry(nombre='e_contrasena',foco_ini=True)
+        e_data = {"nombre": 'e_usuario',
+                  "evento": {"tipo": 'activate',
+                             "funcion": self.onEntryUser,
+                             "widgets": {"entry1": entry_contrasena}}
+                  }
+        entry_user = self.entry(**e_data)
+        self.inicioApp()
 
-    def onButtonPressed(self, button):
-        print("Hello World!")
+    def onButtonEntrar(self, button, widgets):
+        dic = {"tipo"         : 'question',
+               "tituloDialog" : 'Pantalla Inicio',
+               "textDialog"   : '¿Desea continuar hacia la pantalla inicio?'
+        }
+        if (self.dialogoBox(**dic)):
+            ventanaInicio()
 
-    def onButtonPressed2(self, button):
+    def onButtonCancel(self, button, widgets):
         print("Hello cancel!")
 
-    def onEntryValue(self, entry, entry2):
-        entry_contrasena = entry2
-        entry_contrasena.set_text("hello")
+    def onEntryUser(self, entry, entry2):
+        entry_contrasena = entry2["entry1"]
+        entry_contrasena.set_active(True)
         print("Hello entry")
