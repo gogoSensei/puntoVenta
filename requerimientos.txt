@@ -6,3 +6,4 @@
 
 #Control de base de datos
 psycopg2
+pyaml

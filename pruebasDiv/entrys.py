@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
+import re
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, GObject
@@ -17,7 +18,7 @@ class EntryWindow(Gtk.Window):
         self.add(vbox)
 
         self.entry = Gtk.Entry()
-        self.entry.set_text("Hello World")
+        self.entry.connect('insert-text', self.on_insert_text)
         vbox.pack_start(self.entry, True, True, 0)
 
         hbox = Gtk.Box(spacing=6)
@@ -72,6 +73,12 @@ class EntryWindow(Gtk.Window):
         else:
             icon_name = None
         self.entry.set_icon_from_icon_name(Gtk.EntryIconPosition.PRIMARY, icon_name)
+
+    def on_insert_text(self, editable, new_text, new_text_length, positionX):
+        '''called when text is inserted on an entry'''
+        ONLY_NUMBERS = re.compile('^[0-9]*$')
+        if ONLY_NUMBERS.match(new_text) is None:
+            editable.stop_emission('insert-text')
 
 win = EntryWindow()
 win.connect("delete-event", Gtk.main_quit)

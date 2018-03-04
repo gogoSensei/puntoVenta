@@ -18,5 +18,6 @@ builder.connect_signals(Handler())
 
 window = builder.get_object("window1")
 window.show_all()
+print(dir(window))
 
 Gtk.main()
