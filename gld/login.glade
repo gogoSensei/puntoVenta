@@ -178,7 +178,7 @@
                           <object class="GtkLabel" id="label3">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">Iniciar Sesión</property>
+                            <property name="label" translatable="yes">Iniciar Sesión </property>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -220,7 +220,7 @@
                           <object class="GtkLabel" id="label5">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">Cancelar</property>
+                            <property name="label" translatable="yes">Cancelar </property>
                           </object>
                           <packing>
                             <property name="expand">False</property>
