@@ -110,11 +110,11 @@ class widgetsUse(object):
 
   def on_key_release(self, widget, ev, data):
     try:
-      if (widget.get_text().replace(' ', '') == ''):
-        if (data == 'numerico'):
-          widget.set_text('0.00')
-        else:
-          widget.set_text('0')
+      #if (widget.get_text().replace(' ', '') == ''):
+      if (data == 'numerico'):
+        widget.set_text(format(float(widget.get_text() if widget.get_text().replace(' ', '') != '' else '0.00'), '.2f'))
+      else:
+        widget.set_text(str(int(widget.get_text() if widget.get_text().replace(' ', '') != '' else '0')))
     except Exception as e:
       print(e)
     

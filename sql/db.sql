@@ -36,6 +36,10 @@ CREATE TABLE productos(
 INSERT INTO directorio VALUES(DEFAULT, 'Isidro', 'Rivera', 'Monjaras', TRUE, '', '', 'M', '', '');
 INSERT INTO usuarios VALUES (DEFAULT, lastval(), 'isidro', '1b01e2c0c85001ef5684bbf3a457f99e', TRUE);
 
+INSERT INTO productos VALUES (DEFAULT, 'Brocha pelo de camello', 10.00, TRUE);
+INSERT INTO productos VALUES (DEFAULT, 'Pintura berel', 5.50,  TRUE);
+INSERT INTO productos VALUES (DEFAULT, 'alambre galvanizado', 7.80,  TRUE);
+
 
 -- -------------------------------------------------------------
 -- Isidro Rivera Monjaras
@@ -51,5 +55,29 @@ BEGIN
      FROM usuarios 
     WHERE (nickname, pass) = (p_usuario, md5(p_pass));
   RETURN FOUND;
+END;$$
+LANGUAGE plpgsql;
+
+
+-- ----------------------------------------------------------------
+-- Isidro Rivera Monjaras
+-- Función busqueda de productos
+--  04/03/2018
+-- -----------------------------------------------------------------
+CREATE OR REPLACE FUNCTION get_val_producto(p_idproducto INTEGER,
+                                            OUT r_nombre     TEXT,
+                                            OUT r_precio     TEXT)
+  RETURNS RECORD AS $$
+DECLARE
+  r  RECORD;
+BEGIN
+  SELECT INTO r * 
+    FROM productos 
+   WHERE idproducto = p_idproducto;
+  IF (FOUND) THEN
+    r_nombre  := r.nombre;
+    r_precio  := r.precio::TEXT;
+  END IF;
+  RETURN;
 END;$$
 LANGUAGE plpgsql;
